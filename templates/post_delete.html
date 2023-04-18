@@ -1,0 +1,22 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Удаление поста
+{% endblock title %}
+
+
+{% block content %}
+<center>
+<h3>Вы действительно хотите удалить этот пост?</h3>
+
+
+<p>{{ post.title }}</p>
+<p>{{ post.author.author.username }}</p>
+<p>{{ post.text }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="подтвердить">
+</form>
+</center>
+{% endblock content %}
