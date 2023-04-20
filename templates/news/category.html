@@ -1,0 +1,50 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Category
+{% endblock title %}
+
+{% block content %}
+
+<div class="col-lg-8">
+    <!-- Categories widget-->
+    <div class="card mb-4">
+        <div class="card-header">Выбрать категорию</div>
+        <div class="card-body">
+            <div class="row">
+            {% for cat in categories %}
+                <div class="col-sm-6">
+                    <ul class="list-unstyled mb-0">
+                        <li><a href="{% url 'category_list' cat.id %}">{{  cat.category_name  }}</a></li>
+                    </ul>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-8">
+    <h2 class="card-title">Все новости категории {{ category.category_name }}</h2>
+    <br>
+    <p class="card-text">Подписаться на категорию:</p>
+    <p><a class="btn btn-primary" href="">Subscribe</a></p>
+    <br>
+</div>
+
+
+<div class="col-lg-8">
+    <!-- Featured blog post-->
+    {% for post in posts %}
+    <div class="card mb-4">
+        <a href="{% url 'post_details' post.id %}"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+        <div class="card-body">
+            <div class="small text-muted">{{ post.datetime|date:'d M Y' }}</div>
+            <h2 class="card-title">{{ post.title }}</h2>
+            <p class="card-text">{{ post.text|truncatewords:50 }}</p>
+            <p><a class="btn btn-primary" href="{% url 'post_details' post.id %}">Полный текст →</a></p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content%}

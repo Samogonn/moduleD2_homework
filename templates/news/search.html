@@ -1,0 +1,44 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+Все новости
+{% endblock title %}
+
+{% block content %}
+
+
+<!-- Blog entries-->
+<h1>Список новостей</h1>
+<p>Всего новостей на странице: {{ news | length }}</p>
+
+<div class="col-lg-8">
+    <div class="card mb-4">
+        <div class="card-header">Поиск</div>
+        <div class="card-body">
+            <form class="form-control" method="GET">
+                {{ filter.form }}
+                <input type="submit" value="Найти">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-8">
+    <!-- Featured blog post-->
+    {% for news in filter.qs %}
+    <div class="card mb-4">
+        <a href="{% url 'post_details' news.id %}"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+        <div class="card-body">
+            <div class="small text-muted">{{ news.datetime|date:'d M Y' }}</div>
+            <h2 class="card-title">{{ news.title|censor }}</h2>
+            <p class="card-text">{{ news.text|truncatewords:50|censor }}</p>
+            <a class="btn btn-primary" href="{% url 'post_details' news.id %}">Полный текст →</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}

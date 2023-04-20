@@ -5,6 +5,7 @@ from accounts.models import Author
 # Create your models here.
 class Category(models.Model):
     category_name = models.CharField(max_length=64, unique = True)
+    subscribers = models.ManyToManyField(User, blank=True)
 
 
 class Post(models.Model):
