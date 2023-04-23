@@ -1,0 +1,35 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h2>Страница авторизованного пользователя {{user.username}}</h2>
+<div> Здесь может содержаться персональная информация для каждого пользователя </div>
+
+<p><a class="btn btn-primary" href="/accounts/logout/">Выйти</a></p>
+
+{% if is_not_author %}
+<p><a class="btn btn-primary" href="/news/upgrade/"> Стать автором </a></p>
+{% endif %}
+
+<div class="col-lg-8">
+    <!-- Categories widget-->
+    <div class="card mb-4">
+        <div class="card-header">Вы подписаны на категории:</div>
+        <div class="card-body">
+            <div class="row">
+            {% for cat in user_categories %}
+                <div class="col-sm-6">
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="{% url 'category' cat.id %}">{{  cat.category_name  }}</a>
+                            <a class="btn btn-primary" href="{% url 'unsubscribe' cat.id %}">Unsubscribe</a>
+                        </li>
+                    </ul>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

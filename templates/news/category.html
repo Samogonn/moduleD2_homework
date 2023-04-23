@@ -15,7 +15,7 @@ Category
             {% for cat in categories %}
                 <div class="col-sm-6">
                     <ul class="list-unstyled mb-0">
-                        <li><a href="{% url 'category_list' cat.id %}">{{  cat.category_name  }}</a></li>
+                        <li><a href="{% url 'category' cat.id %}">{{  cat.category_name  }}</a></li>
                     </ul>
                 </div>
             {% endfor %}
@@ -27,9 +27,12 @@ Category
 <div class="col-lg-8">
     <h2 class="card-title">Все новости категории {{ category.category_name }}</h2>
     <br>
-    <p class="card-text">Подписаться на категорию:</p>
-    <p><a class="btn btn-primary" href="">Subscribe</a></p>
-    <br>
+    {% if not is_user_subscribed %}
+        <p class="card-text">Подписаться на категорию:</p>
+        <p><a class="btn btn-primary" href="{% url 'subscribe' category.id %}">Subscribe</a></p>
+        <br>
+
+    {% endif %}
 </div>
 
 
@@ -47,4 +50,5 @@ Category
     </div>
     {% endfor %}
 </div>
+
 {% endblock content%}

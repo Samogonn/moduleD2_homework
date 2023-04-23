@@ -1,14 +1,21 @@
+import os
+
 from django.shortcuts import render, redirect
 from django.urls import resolve
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
 
 from .models import Post, Category
 from .filters import PostFilter
 from .forms import PostForm
 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class NewsList(ListView):
     model = Post
@@ -42,24 +49,35 @@ class Search(ListView):
         return context
 
 
-class CategoryList(ListView):
-    model = Post
+class CategoryView(ListView):
+    model = Category
     template_name = 'news/category.html'
     context_object_name = 'posts'
 
+    # getting all posts by category
     def get_queryset(self):
         self.id = resolve(self.request.path_info).kwargs['pk']
         c = Category.objects.get(id=self.id)
         queryset = Post.objects.filter(category=c)
         return queryset
 
+    # getting all categories, current category and is user subscribed info
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user = self.request.user
         categories = Category.objects.all()
         context['categories'] = categories
         category = Category.objects.get(pk=self.id)
         context['category'] = category
+        is_user_subscribed = category.subscribers.filter(email=user.email)
+
+        context['is_user_subscribed'] = is_user_subscribed
+
+        subscribers = category.subscribers.values
+        context['subscribers'] = subscribers
+
         return context
+
 
 
 class NewsDetail(DetailView):
@@ -82,6 +100,48 @@ class DeletePost(DeleteView):
     template_name = 'news/post_delete.html'
     queryset = Post.objects.all()
     success_url = '/news/'
+
+
+@login_required
+def subscribe_to_category(request, pk):
+    user = request.user
+    category = Category.objects.get(id=pk)
+
+    if not category.subscribers.filter(id=user.id).exists():
+        category.subscribers.add(user)
+        html_content = render_to_string(
+            'mail/newsletter.html',
+            {
+                'category': category,
+                'user': user,
+            },
+        )
+
+        msg = EmailMultiAlternatives(
+            subject=f'Вы подптсались на категорию {category}',
+            body='',
+            from_email=os.getenv('DEFAULT_FROM_EMAIL'),
+            to=[user.email, ],
+        )
+
+        msg.attach_alternative(html_content, 'text/html')
+
+        msg.send()
+
+        return redirect('/protect/')
+
+    else:
+        return redirect('/protect/')
+
+
+@login_required
+def unsubscribe_from_category(request, pk):
+    user = request.user
+    c = Category.objects.get(id=pk)
+
+    if c.subscribers.filter(id=user.id).exists():
+        c.subscribers.remove(user)
+    return redirect('/protect/')
 
 
 @login_required
