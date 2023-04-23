@@ -2,5 +2,5 @@ from django.urls import path
 from .views import IndexView
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='profile'),
+    path('protect/', IndexView.as_view(), name='profile'),
 ]

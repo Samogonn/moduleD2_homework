@@ -87,7 +87,7 @@ class NewsDetail(DetailView):
 
 
 class UpdatePost(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    template_name = 'create_post.html'
+    template_name = 'news/create_post.html'
     form_class = PostForm
     permission_required = ('news.change_post', )
 
@@ -110,7 +110,7 @@ def subscribe_to_category(request, pk):
     if not category.subscribers.filter(id=user.id).exists():
         category.subscribers.add(user)
         html_content = render_to_string(
-            'mail/newsletter.html',
+            'accounts/mail/newsletter.html',
             {
                 'category': category,
                 'user': user,
@@ -128,10 +128,10 @@ def subscribe_to_category(request, pk):
 
         msg.send()
 
-        return redirect('/protect/')
+        return redirect('/accounts/protect/')
 
     else:
-        return redirect('/protect/')
+        return redirect('/accounts/protect/')
 
 
 @login_required
@@ -141,7 +141,7 @@ def unsubscribe_from_category(request, pk):
 
     if c.subscribers.filter(id=user.id).exists():
         c.subscribers.remove(user)
-    return redirect('/protect/')
+    return redirect('/accounts/protect/')
 
 
 @login_required
@@ -150,4 +150,4 @@ def upgrade_me(request):
     authors_group = Group.objects.get(name='authors')
     if not request.user.groups.filter(name='authors').exists():
         authors_group.user_set.add(user)
-    return redirect('/protect/')
+    return redirect('/accounts/protect/')
