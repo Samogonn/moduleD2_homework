@@ -3,7 +3,7 @@ from django.dispatch import receiver
 
 from .models import PostCategory
 
-from .tasks.basic import send_subscription_letter
+from .tasks.subscriptions import send_subscription_letter
 
 
 @receiver(m2m_changed, sender=PostCategory)

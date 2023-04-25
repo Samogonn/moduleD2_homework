@@ -79,7 +79,6 @@ class CategoryView(ListView):
         return context
 
 
-
 class NewsDetail(DetailView):
     model = Post
     template_name = 'news/news_details.html'
@@ -109,27 +108,6 @@ def subscribe_to_category(request, pk):
 
     if not category.subscribers.filter(id=user.id).exists():
         category.subscribers.add(user)
-        html_content = render_to_string(
-            'accounts/mail/newsletter.html',
-            {
-                'category': category,
-                'user': user,
-            },
-        )
-
-        msg = EmailMultiAlternatives(
-            subject=f'Вы подптсались на категорию {category}',
-            body='',
-            from_email=os.getenv('DEFAULT_FROM_EMAIL'),
-            to=[user.email, ],
-        )
-
-        msg.attach_alternative(html_content, 'text/html')
-
-        msg.send()
-
-        return redirect('/accounts/protect/')
-
     else:
         return redirect('/accounts/protect/')
 
