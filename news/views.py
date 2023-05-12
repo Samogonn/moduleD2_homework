@@ -1,4 +1,6 @@
 import os
+from typing import Any, Optional
+from django.db import models
 
 from django.shortcuts import render, redirect
 from django.urls import resolve
@@ -7,7 +9,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.template.loader import render_to_string
-from django.core.mail import EmailMultiAlternatives
+from django.core.cache import cache
 
 from .models import Post, Category
 from .filters import PostFilter
@@ -83,6 +85,15 @@ class NewsDetail(DetailView):
     model = Post
     template_name = 'news/news_details.html'
     context_object_name = 'news_details'
+
+    def get_object(self, *args, **kwargs):
+        obj = cache.get(f'news-{self.kwargs["pk"]}', None)
+
+        if not obj:
+            obj = super().get_object(queryset=self.queryset)
+            cache.set(f'news-{self.kwargs["pk"]}', obj)
+
+        return obj
 
 
 class UpdatePost(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):

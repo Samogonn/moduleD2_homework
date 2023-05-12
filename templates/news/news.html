@@ -61,6 +61,8 @@
 
 <div class="col-lg-4">
     <!-- Categories widget-->
+    {% load cache %}
+    {% cache 60 categories %}
     <div class="card mb-4">
         <div class="card-header">Выбрать категорию</div>
         <div class="card-body">
@@ -75,6 +77,7 @@
             </div>
         </div>
     </div>
+    {% endcache %}
 </div>
 
 {% endblock content %}
