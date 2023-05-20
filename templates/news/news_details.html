@@ -18,7 +18,11 @@
                     <div class="small text-muted">{{ news_details.datetime|date:'d-m-Y' }} {{ news_details.datetime|time:'H:i' }}</div>
                     <h2 class="card-title">{{ news_details.title|censor }}</h2>
                     <p class="card-text">{{ news_details.text|censor }}</p>
-                    <p>{{ news_details.category }}</p>
+                    <p>{% for cat in news_details.category.all %}
+                        {{ cat }}
+                        {% endfor %}
+                    </p>
+                    <p>{{ news_details.rating }}</p>
                     <br>
                     <p><a class="btn btn-primary" href="{% url 'update_post' news_details.id %}">Редактировать пост</a></p>
                     <p><a class="btn btn-primary" href="{% url 'delete_post' news_details.id %}">Удалить пост</a></p>

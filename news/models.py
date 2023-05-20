@@ -8,6 +8,9 @@ class Category(models.Model):
     category_name = models.CharField(max_length=64, unique = True)
     subscribers = models.ManyToManyField(User, blank=True)
 
+    def __str__(self) -> str:
+        return f'{self.category_name}'
+
 
 class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)

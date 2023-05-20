@@ -21,6 +21,9 @@ class Author(models.Model):
         self.rating = pRating * 3 + cRating
         self.save()
 
+    def __str__(self) -> str:
+        return f'{self.author}'
+
 
 class BasicSignupForm(SignupForm):
     def save(self, request):
