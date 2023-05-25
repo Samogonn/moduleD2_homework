@@ -1,23 +1,31 @@
-import os
-from typing import Any, Optional
-from django.db import models
+import logging
 
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.urls import resolve
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.template.loader import render_to_string
 from django.core.cache import cache
 
 from .models import Post, Category
 from .filters import PostFilter
 from .forms import PostForm
 
+
 from dotenv import load_dotenv
 
+
 load_dotenv()
+
+
+logger = logging.getLogger('django.security')
+logger.debug('debug error')
+logger.info('info error')
+logger.warning('warning error')
+logger.error('error error)')
+logger.critical('critical error(')
+
 
 class NewsList(ListView):
     model = Post
@@ -25,7 +33,6 @@ class NewsList(ListView):
     context_object_name = 'news_list'
     queryset = Post.objects.order_by('-id')
     paginate_by = 10
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

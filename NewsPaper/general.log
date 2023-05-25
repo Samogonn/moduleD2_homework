@@ -1,0 +1,7 @@
+2023-05-25 10:15:25,800 INFO autoreload C:\Users\solov\coding\skillfactory\news_paper\news_paper\NewsPaper\settings.py changed, reloading.
+2023-05-25 10:15:26,432 INFO autoreload Watching for file changes with StatReloader
+2023-05-25 10:15:26,444 INFO views info error
+2023-05-25 10:15:26,444 WARNING views warning error
+2023-05-25 10:15:26,444 ERROR views error error)
+2023-05-25 10:15:26,444 CRITICAL views critical error(
+2023-05-25 10:20:08,926 INFO autoreload C:\Users\solov\coding\skillfactory\news_paper\news_paper\NewsPaper\settings.py changed, reloading.

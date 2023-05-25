@@ -114,7 +114,7 @@ WSGI_APPLICATION = 'NewsPaper.wsgi.application'
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': os.path.join(BASE_DIR, 'cache_files'),  # Указываем, куда будем сохранять кэшируемые файлы! Не забываем создать папку cache_files внутри папки с manage.py!
+        'LOCATION': os.path.join(BASE_DIR, 'cache_files'),
     }
 }
 
@@ -183,6 +183,116 @@ STATICFILES_DIRS = [
 
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 APSCHEDULER_RUN_NOW_TIMEOUT = 25
+
+
+ADMINS = [("admin", "admin@example.com")]
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'console_debug': {
+            'format': '%(asctime)s %(levelname)s %(message)s'
+        },
+        'console_path': {
+            'format': '%(pathname)s'
+        },
+        'file_general': {
+            'format': '%(asctime)s %(levelname)s %(module)s %(message)s'
+        },
+        'file_error': {
+            'format': '%(asctime)s %(levelname)s %(message)s %(pathname)s'
+        },
+        'file_security': {
+            'format': '%(asctime)s %(levelname)s %(module)s %(message)s'
+        }
+    },
+
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+
+    'handlers': {
+        'console_debug': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'console_debug'
+        },
+        'console_path': {
+            'level': 'WARNING',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'console_path'
+        },
+        'file_general': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.FileHandler',
+            "filename": f"{BASE_DIR}/NewsPaper/logs/general.log",
+            'formatter': 'file_general'
+        },
+        'file_error': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.FileHandler',
+            "filename": f"{BASE_DIR}/NewsPaper/logs/errors.log",
+            'formatter': 'file_error'
+        },
+        'file_security': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.FileHandler',
+            "filename": f"{BASE_DIR}/NewsPaper/logs/security.log",
+            'formatter': 'file_security',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['console_debug', 'console_path', 'file_general'],
+            'propagate': True,
+            'level': 'DEBUG'
+        },
+        'django.request': {
+            'handlers': ['file_error', 'mail_admins'],
+            'propagate': True,
+            'level': 'ERROR'
+        },
+        'django.server': {
+            'handlers': ['file_error', 'mail_admins'],
+            'propagate': True,
+            'level': 'ERROR'
+        },
+        'django.template': {
+            'handlers': ['file_error'],
+            'propagate': True,
+            'level': 'ERROR'
+        },
+        'django.db_backends': {
+            'handlers': ['file_error'],
+            'propagate': True,
+            'level': 'ERROR'
+        },
+        'django.security': {
+            'handlers': ['file_security'],
+            'propagate': True,
+            'level': 'INFO'
+        },
+    }
+}
 
 
 # if DEBUG:

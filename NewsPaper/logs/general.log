@@ -1,0 +1,42 @@
+2023-05-25 16:49:09,155 INFO autoreload C:\Users\solov\coding\skillfactory\news_paper\news_paper\NewsPaper\settings.py changed, reloading.
+2023-05-25 16:49:09,795 INFO autoreload Watching for file changes with StatReloader
+2023-05-25 16:49:33,639 INFO autoreload C:\Users\solov\coding\skillfactory\news_paper\news_paper\news\views.py changed, reloading.
+2023-05-25 16:49:34,295 INFO autoreload Watching for file changes with StatReloader
+2023-05-25 16:49:34,311 INFO views info error
+2023-05-25 16:49:34,311 WARNING views warning error
+2023-05-25 16:49:34,312 ERROR views error error)
+2023-05-25 16:49:34,312 CRITICAL views critical error(
+2023-05-25 16:50:27,296 INFO autoreload C:\Users\solov\coding\skillfactory\news_paper\news_paper\NewsPaper\settings.py changed, reloading.
+2023-05-25 16:50:27,924 INFO autoreload Watching for file changes with StatReloader
+2023-05-25 16:50:27,940 INFO views info error
+2023-05-25 16:50:27,940 WARNING views warning error
+2023-05-25 16:50:27,940 ERROR views error error)
+2023-05-25 16:50:27,941 CRITICAL views critical error(
+2023-05-25 16:51:07,407 INFO autoreload C:\Users\solov\coding\skillfactory\news_paper\news_paper\news\views.py changed, reloading.
+2023-05-25 16:51:08,071 INFO autoreload Watching for file changes with StatReloader
+2023-05-25 16:51:08,092 ERROR views error error)
+2023-05-25 16:51:08,127 CRITICAL views critical error(
+2023-05-25 16:52:10,720 INFO autoreload C:\Users\solov\coding\skillfactory\news_paper\news_paper\news\views.py changed, reloading.
+2023-05-25 16:52:11,340 INFO autoreload Watching for file changes with StatReloader
+2023-05-25 16:52:11,367 INFO views info error
+2023-05-25 16:52:11,368 WARNING views warning error
+2023-05-25 16:52:11,369 ERROR views error error)
+2023-05-25 16:52:11,369 CRITICAL views critical error(
+2023-05-25 16:56:33,477 INFO autoreload C:\Users\solov\coding\skillfactory\news_paper\news_paper\NewsPaper\settings.py changed, reloading.
+2023-05-25 16:59:32,761 INFO autoreload Watching for file changes with StatReloader
+2023-05-25 16:59:32,782 INFO views info error
+2023-05-25 16:59:32,782 WARNING views warning error
+2023-05-25 16:59:32,783 ERROR views error error)
+2023-05-25 16:59:32,784 CRITICAL views critical error(
+2023-05-25 17:00:12,393 INFO autoreload C:\Users\solov\coding\skillfactory\news_paper\news_paper\NewsPaper\settings.py changed, reloading.
+2023-05-25 17:05:02,850 INFO autoreload Watching for file changes with StatReloader
+2023-05-25 17:05:02,864 INFO views info error
+2023-05-25 17:05:02,865 WARNING views warning error
+2023-05-25 17:05:02,865 ERROR views error error)
+2023-05-25 17:05:02,866 CRITICAL views critical error(
+2023-05-25 17:06:30,271 INFO autoreload C:\Users\solov\coding\skillfactory\news_paper\news_paper\NewsPaper\settings.py changed, reloading.
+2023-05-25 17:06:30,937 INFO autoreload Watching for file changes with StatReloader
+2023-05-25 17:06:30,949 INFO views info error
+2023-05-25 17:06:30,949 WARNING views warning error
+2023-05-25 17:06:30,950 ERROR views error error)
+2023-05-25 17:06:30,950 CRITICAL views critical error(
