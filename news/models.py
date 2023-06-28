@@ -3,32 +3,26 @@ from django.contrib.auth.models import User
 from accounts.models import Author
 from django.core.cache import cache
 
+
 # Create your models here.
 class Category(models.Model):
-    category_name = models.CharField(max_length=64, unique = True)
+    category_name = models.CharField(max_length=64, unique=True)
     subscribers = models.ManyToManyField(User, blank=True)
 
     def __str__(self) -> str:
-        return f'{self.category_name}'
+        return f"{self.category_name}"
 
 
 class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
-    NEWS = 'NW'
-    ARTICLE = 'AR'
-    POST_TYPE_CHOICES = [
-        (NEWS, 'Новость'),
-        (ARTICLE, 'Статья')
-    ]
+    NEWS = "NW"
+    ARTICLE = "AR"
+    POST_TYPE_CHOICES = [(NEWS, "Новость"), (ARTICLE, "Статья")]
 
-    type = models.CharField(
-        max_length=2,
-        choices=POST_TYPE_CHOICES,
-        default=NEWS
-    )
+    type = models.CharField(max_length=2, choices=POST_TYPE_CHOICES, default=NEWS)
     datetime = models.DateTimeField(auto_now_add=True)
-    category = models.ManyToManyField(Category, through='PostCategory')
+    category = models.ManyToManyField(Category, through="PostCategory")
     title = models.CharField(max_length=128)
     text = models.TextField()
     rating = models.SmallIntegerField(default=0)
@@ -42,14 +36,14 @@ class Post(models.Model):
         self.save()
 
     def preview(self):
-        return self.text[:124] + '…'
+        return self.text[:124] + "…"
 
     def get_absolute_url(self):
-        return f'/news/{self.id}'
+        return f"/news/{self.id}"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        cache.delete(f'news-{self.pk}')
+        cache.delete(f"news-{self.pk}")
 
 
 class PostCategory(models.Model):
